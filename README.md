@@ -22,7 +22,7 @@ Di Linux/macOS: `javac -encoding UTF-8 -d build $(find src -name '*.java')` lalu
 ## Penggunaan
 
 1. Isi nama, nomor WhatsApp Indonesia (`08...`, `628...`, atau `+628...`), layanan, dan berat dalam kg. Berat boleh memakai koma atau titik desimal. Estimasi biaya diperbarui saat berat atau layanan berubah.
-2. Simpan pesanan. Tab antrean akan terbuka. Tombol **Proses Antrean Terdepan** selalu mengambil pesanan pertama yang menunggu, selama jumlah pesanan diproses kurang dari empat.
+2. Simpan pesanan. Halaman antrean akan terbuka. Tombol **Proses Antrean Terdepan** selalu mengambil pesanan pertama yang menunggu, selama jumlah pesanan diproses kurang dari empat.
 3. Pilih baris pada tabel **Sedang Diproses** dan tekan **Tandai Selesai**. Urutan penyelesaian boleh berbeda dari urutan kedatangan.
 4. Pilih baris pada **Siap Diambil** untuk membuka tautan WhatsApp. Kasir perlu memeriksa dan mengirim pesan sendiri. Jika browser gagal dibuka, tautan dan pesan dapat disalin dari dialog.
 5. Setelah cucian diambil, pilih pesanan dan tekan **Konfirmasi Sudah Diambil**.

@@ -93,6 +93,7 @@ classDiagram
     class MainFrame
     class PanelInputPesanan
     class PanelMonitoringPesanan
+    class UiStyle
     Layanan <|-- CuciKering
     Layanan <|-- CuciSetrika
     Pesanan --> Pelanggan
@@ -106,13 +107,16 @@ classDiagram
     PanelInputPesanan --> LaundryManager
     PanelMonitoringPesanan --> LaundryManager
     PanelMonitoringPesanan --> WhatsAppHelper
+    MainFrame ..> UiStyle
+    PanelInputPesanan ..> UiStyle
+    PanelMonitoringPesanan ..> UiStyle
 ```
 
 `Layanan` mengabstraksikan tarif. `CuciKering` dan `CuciSetrika` mengganti perhitungan melalui overriding. Panel input memakai referensi `Layanan`, sehingga pilihan layanan diproses secara polimorfik. `WhatsAppHelper` menjalankan kontrak `Notifiable`.
 
 ## BAB III — Perancangan sistem (OOD)
 
-`MainFrame` membuat satu `LaundryManager` untuk kedua tab. Saat menerima pesanan, panel memeriksa berat, lalu manager memvalidasi data lain, membuat ID, `Pelanggan`, dan `Pesanan`. Manager memasukkan pesanan ke `Queue<Pesanan>` dan `ArrayList<Pesanan>`. ID hanya bertambah setelah objek berhasil dibuat dan dicatat.
+`MainFrame` membuat satu `LaundryManager` untuk kedua halaman yang diakses melalui navigasi samping. Saat menerima pesanan, panel memeriksa berat, lalu manager memvalidasi data lain, membuat ID, `Pelanggan`, dan `Pesanan`. Manager memasukkan pesanan ke `Queue<Pesanan>` dan `ArrayList<Pesanan>`. ID hanya bertambah setelah objek berhasil dibuat dan dicatat.
 
 ### SD-01 — Penerimaan pesanan
 
@@ -139,7 +143,7 @@ sequenceDiagram
             L-->>O: total biaya
             M->>M: Tambah ke antrean dan daftar semua
             M-->>P: Pesanan
-            P-->>K: ID pesanan dan tab antrean
+            P-->>K: ID pesanan dan halaman antrean
         end
     end
 ```
@@ -209,7 +213,7 @@ Penyelesaian memakai ID dari baris yang dipilih, sehingga tidak mengikuti FIFO. 
 
 ## BAB IV — Implementasi dan pengujian
 
-Kode memakai Java 17 dan pustaka standar. Struktur: `model` menyimpan objek dan status; `service` berisi aturan operasional; `util` menyiapkan format dan WhatsApp; `ui` menampilkan formulir dan tiga tabel. Terdapat 14 file Java di `src`, satu lebih banyak dari rancangan awal karena `FormatUtil` memusatkan format Rupiah dan berat yang dipakai di GUI serta pesan WhatsApp. `Main.java` memulai GUI di Swing Event Dispatch Thread. Cara menjalankan tersedia di [README](../README.md).
+Kode memakai Java 17 dan pustaka standar. Struktur: `model` menyimpan objek dan status; `service` berisi aturan operasional; `util` menyiapkan format dan WhatsApp; `ui` menampilkan formulir dan tiga tabel. Terdapat 15 file Java di `src`: `FormatUtil` memusatkan format Rupiah dan berat, sedangkan `UiStyle` memusatkan gaya antarmuka. `Main.java` memulai GUI di Swing Event Dispatch Thread. Cara menjalankan tersedia di [README](../README.md).
 
 Konsep OOP terlihat pada atribut privat dan getter/setter (`Pelanggan`), inheritance dan abstract method (`Layanan`), overriding dan polymorphism (dua paket), serta interface (`Notifiable`). Status maju satu tahap melalui `Pesanan.lanjutkanStatus()`. Manager membatasi kapan method itu dipanggil untuk alur operasional. Tiga tabel mengambil data dari manager dan tidak dapat diedit langsung.
 
