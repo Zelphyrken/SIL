@@ -1,0 +1,29 @@
+@startuml
+left to right direction
+actor Kasir
+actor "Pegawai Laundry" as Pegawai
+
+rectangle "Sistem Informasi Laundry" {
+  usecase "Menerima Pesanan" as UC01
+  usecase "Menghitung Biaya Laundry" as UC02
+  usecase "Melihat Antrean Pesanan" as UC03
+  usecase "Memproses Pesanan FIFO" as UC04
+  usecase "Menandai Pesanan Selesai" as UC05
+  usecase "Melihat Status Pesanan" as UC06
+  usecase "Menyiapkan Notifikasi WhatsApp" as UC07
+  usecase "Mengonfirmasi Pengambilan" as UC08
+  usecase "Melihat Kapasitas Aktif" as UC09
+}
+
+Kasir --> UC01
+Kasir --> UC03
+Kasir --> UC06
+Kasir --> UC07
+Kasir --> UC08
+Pegawai --> UC03
+Pegawai --> UC04
+Pegawai --> UC05
+Pegawai --> UC06
+Pegawai --> UC09
+UC01 .> UC02 : <<include>>
+@enduml
